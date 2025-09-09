@@ -1,4 +1,4 @@
-from app_shashidhar import app_shashidhar
+from app import app
 
 def test_add():
-    assert app_shashidhar.add(1,1) == 2
+    assert app.add(1,1) == 2
