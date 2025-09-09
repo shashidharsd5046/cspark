@@ -26,3 +26,14 @@ jobs:
       - name: Build
         working-directory: my_package
         run: poetry build
+jobs:
+  PublishPackage:
+    run-on: ubuntu-latest
+    steps:
+    # copy the setup steps except Run Tests from previous job
+      - name: Publish
+        working-directory: my_package
+        run: |
+          poetry config repositories.cspark https://gitlab.com/api/v4/projects/61532089/packages/pypi
+          poetry config http-basic.cspark cspark_user <password>
+          poetry publish -r cspark 
