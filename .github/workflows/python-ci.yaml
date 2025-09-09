@@ -26,14 +26,25 @@ jobs:
       - name: Build
         working-directory: my_package
         run: poetry build
-jobs:
+
   PublishPackage:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-    # copy the setup steps except Run Tests from previous job
+      # copy the setup steps except Run Tests from previous job
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11.x'
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
       - name: Publish
         working-directory: my_package
         run: |
           poetry config repositories.cspark https://gitlab.com/api/v4/projects/61532089/packages/pypi
-          poetry config http-basic.cspark cspark_user <password>
+          poetry config http-basic.cspark cspark_user ${{ secrets.PYPI_TOKEN }}
           poetry publish -r cspark 
+  
