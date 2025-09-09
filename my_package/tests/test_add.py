@@ -1,4 +1,4 @@
-from my_package.app import app
+from appshashi import appshashi
 
 def test_add():
-    assert app.add(1,1) == 2
+    assert appshashi.add(1,1) == 2
